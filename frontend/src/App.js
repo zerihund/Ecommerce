@@ -8,9 +8,11 @@ import Badge from "react-bootstrap/Badge";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
 import { Store } from "./Store";
+import CartPage from "./pages/CartPage";
+import SigninPage from "./pages/SigninPage";
 function App() {
-  const {state}=useContext(Store)
-  const {cart}=state
+  const { state } = useContext(Store);
+  const { cart } = state;
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
@@ -22,10 +24,10 @@ function App() {
               </LinkContainer>
               <Nav className="me-auto">
                 <Link to="/cart" className="nav-link">
-                Cart
+                  Cart
                   {cart.cartItems.length > 0 && (
                     <Badge pill bg="danger">
-                      {cart.cartItems.length}
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                     </Badge>
                   )}
                 </Link>
@@ -37,6 +39,8 @@ function App() {
           <Container>
             <Routes>
               <Route path="/product/:slug" element={<Product />} />
+              <Route path="/signin" element={<SigninPage />} />
+              <Route path="/cart" element={<CartPage/>}></Route>
               <Route path="/" element={<Home />}></Route>
             </Routes>
           </Container>
