@@ -16,6 +16,8 @@ import SigninPage from "./pages/SigninPage";
 import ShippingAddress from "./pages/ShippingAddress";
 import SignupPage from "./pages/SignupPage";
 import PaymentMethod from "./pages/PaymentMethod";
+import PlaceOrder from "./pages/PlaceOrder";
+import OrderPage from "./pages/OrderPage";
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -76,7 +78,9 @@ function App() {
               <Route path="/product/:slug" element={<Product />} />
               <Route path="/signin" element={<SigninPage />} />
               <Route path="/signup" element={<SignupPage />} />
+              <Route path="/placeorder" element={<PlaceOrder />} />
               <Route path="/shipping" element={<ShippingAddress />} />
+              <Route path="/order/:id" element={<OrderPage/>} />
               <Route path="/payment" element={<PaymentMethod />}></Route>
               <Route path="/cart" element={<CartPage />}></Route>
               <Route path="/" element={<Home />}></Route>
