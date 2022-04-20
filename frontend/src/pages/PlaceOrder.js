@@ -1,5 +1,5 @@
-import Axios from 'axios';
-import React, { useContext, useEffect, useReducer } from 'react';
+import Axios from "axios";
+import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import Row from "react-bootstrap/Row";
@@ -7,24 +7,24 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
-import { toast } from 'react-toastify';
-import { getError } from '../utils';
+import { toast } from "react-toastify";
+import { getError } from "../utils";
 import { Store } from "../Store";
 import CheckoutSteps from "../components/CheckoutSteps";
-import LoadingBox from '../components/LoadingBox';
+import LoadingBox from "../components/LoadingBox";
 
 const reducer = (state, action) => {
-    switch (action.type) {
-      case 'CREATE_REQUEST':
-        return { ...state, loading: true };
-      case 'CREATE_SUCCESS':
-        return { ...state, loading: false };
-      case 'CREATE_FAIL':
-        return { ...state, loading: false };
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case "CREATE_REQUEST":
+      return { ...state, loading: true };
+    case "CREATE_SUCCESS":
+      return { ...state, loading: false };
+    case "CREATE_FAIL":
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 
 export default function PlaceOrder() {
   const navigate = useNavigate();
@@ -45,10 +45,10 @@ export default function PlaceOrder() {
 
   const placeOrderHandler = async () => {
     try {
-      dispatch({ type: 'CREATE_REQUEST' });
+      dispatch({ type: "CREATE_REQUEST" });
 
       const { data } = await Axios.post(
-        '/api/orders',
+        "/api/orders",
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,
@@ -64,12 +64,12 @@ export default function PlaceOrder() {
           },
         }
       );
-      ctxDispatch({ type: 'CART_CLEAR' });
-      dispatch({ type: 'CREATE_SUCCESS' });
-      localStorage.removeItem('cartItems');
+      ctxDispatch({ type: "CART_CLEAR" });
+      dispatch({ type: "CREATE_SUCCESS" });
+      localStorage.removeItem("cartItems");
       navigate(`/order/${data.order._id}`);
     } catch (err) {
-      dispatch({ type: 'CREATE_FAIL' });
+      dispatch({ type: "CREATE_FAIL" });
       toast.error(getError(err));
     }
   };
@@ -174,13 +174,7 @@ export default function PlaceOrder() {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div className="d-grid">
-                    <Button
-                      type="button"
-                      onClick={placeOrderHandler}
-                      disabled={cart.cartItems.length === 0}
-                    >
-                      Place Order
-                    </Button>
+                    <h2>order has been placed</h2>
                   </div>
                   {loading && <LoadingBox></LoadingBox>}
                 </ListGroup.Item>
